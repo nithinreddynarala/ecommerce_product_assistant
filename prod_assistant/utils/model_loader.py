@@ -2,12 +2,13 @@ import os
 import sys
 import json
 from dotenv import load_dotenv
-from utils.config_loader import load_config
+from prod_assistant.utils.config_loader import load_config
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_openai import ChatOpenAI
 from langchain_groq import ChatGroq
-from logger import GLOBAL_LOGGER as log
-from exception.custom_exception import ProductAssistantException
+from prod_assistant.logger import GLOBAL_LOGGER as log
+from prod_assistant.exception.custom_exception import ProductAssistantException
 import asyncio
 
 
@@ -58,10 +59,8 @@ class ModelLoader:
             except RuntimeError:
                 asyncio.set_event_loop(asyncio.new_event_loop())
 
-            return GoogleGenerativeAIEmbeddings(
-                model=model_name,
-                google_api_key=self.api_key_mgr.get("GOOGLE_API_KEY")  # type: ignore
-            )
+            return HuggingFaceEmbeddings(model_name=model_name, model_kwargs={"device": "cpu"},encode_kwargs={"normalize_embeddings": True})
+            
         except Exception as e:
             log.error("Error loading embedding model", error=str(e))
             raise ProductAssistantException("Failed to load embedding model", sys)
