@@ -3,7 +3,8 @@ import importlib.metadata
 packages=[
     "langchain",
     "langchain_core",
-    "python-dotenv"
+    "python-dotenv",
+    "tavily"
 ]
 
 for pkg in packages:
