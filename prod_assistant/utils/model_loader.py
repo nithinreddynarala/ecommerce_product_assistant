@@ -15,8 +15,7 @@ import asyncio
 class ApiKeyManager:
     def __init__(self):
         self.api_keys = {
-            "OPENAI_API_KEY": os.getenv("OPENAI_API_KEY"),
-            "GOOGLE_API_KEY": os.getenv("GOOGLE_API_KEY"),
+            "HF_TOKEN": os.getenv("HF_TOKEN"),
             "GROQ_API_KEY": os.getenv("GROQ_API_KEY"),
             "ASTRA_DB_API_ENDPOINT": os.getenv("ASTRA_DB_API_ENDPOINT"),
             "ASTRA_DB_APPLICATION_TOKEN": os.getenv("ASTRA_DB_APPLICATION_TOKEN"),

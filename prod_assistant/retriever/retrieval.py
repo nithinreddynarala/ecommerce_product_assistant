@@ -56,13 +56,12 @@ class Retriever:
 
             #self.retriever_instance=self.vstore.as_retriever(search_kwargs={"k":top_k})
             
-            self.retriever_instance=self.vstore.as_retriever(
-                search_type="mmr",
-                search_kwargs={"k": top_k,
-                                "fetch_k": 20,
-                                "lambda_mult": 0.7,
-                                "score_threshold": 0.6
-                               })
+            self.retriever_instance = self.vstore.as_retriever(
+                search_type="similarity_score_threshold",
+                search_kwargs={
+                    "score_threshold": 0.3,
+                    "k": 3,
+                             })
             print("Retriever loaded successfully.")
             
             '''llm = self.model_loader.load_llm()
